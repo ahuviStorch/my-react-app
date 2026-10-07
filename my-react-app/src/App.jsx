@@ -1,28 +1,41 @@
-import { useState } from 'react';
+// ייבוא הקומפוננטות שיצרנו מהקבצים שלהן
+import Header from './Header';
+import TaskList from './TaskList';
+import TaskSummary from './TaskSummary';
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  const increment = () => setCount(count + 1);
-  const decrement = () => setCount(count - 1);
-  const reset = () => setCount(0);
-
-  const buttonStyle = { margin: '5px', padding: '10px 20px', fontSize: '16px' };
+  // הגדרת משתנה סטטי לשם המשתמש
+  const userName = "ישראל ישראלי";
+  
+  // הגדרת מערך סטטי של אובייקטים, שכל אחד מהם מייצג משימה
+  const tasks = [
+    { id: 1, title: "ללמוד React", completed: true },
+    { id: 2, title: "להכין שיעורי בית", completed: true },
+    { id: 3, title: "לקרוא ספר", completed: false },
+    { id: 4, title: "סידור החדר", completed: false }
+  ];
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif', textAlign: 'center' }}>
-      <h1>פרויקט ריאקט ראשון</h1>
-      <p>ערך המונה הנוכחי: {count}</p>
+    <div style={{ padding: '20px', fontFamily: 'sans-serif', direction: 'rtl' }}>
+      {/* 
+        הקריאה לקומפוננטת Header:
+        אנו מעבירים לה נתונים באמצעות תכונות (Props):
+        - title מקבל טקסט קבוע
+        - userName מקבל את המשתנה userName שהגדרנו למעלה
+      */}
+      <Header title="מערכת לניהול משימות" userName={userName} />
 
-      <button onClick={increment} style={buttonStyle}>
-        הגדל
-      </button>
-      <button onClick={decrement} style={buttonStyle}>
-        הקטן
-      </button>
-      <button onClick={reset} style={{ ...buttonStyle, backgroundColor: '#ffcccc' }}>
-        אפס
-      </button>
+      {/* 
+        הקריאה לקומפוננטת TaskList:
+        מעבירים את המערך tasks תחת השם tasks
+      */}
+      <TaskList tasks={tasks} />
+
+      {/* 
+        הקריאה לקומפוננטת TaskSummary:
+        מעבירים גם לה את אותו מערך tasks כדי שתוכל לחשב את הסיכום
+      */}
+      <TaskSummary tasks={tasks} />
     </div>
   );
 }
